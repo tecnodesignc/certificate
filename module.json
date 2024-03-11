@@ -1,0 +1,15 @@
+{
+    "name": "Certificate",
+    "alias": "certificate",
+    "description": "",
+    "keywords": [],
+    "priority": 1,
+    "providers": [
+        "Modules\\Certificate\\Providers\\CertificateServiceProvider",
+        "Modules\\Certificate\\Providers\\EventServiceProvider",
+        "Modules\\Certificate\\Providers\\RouteServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
