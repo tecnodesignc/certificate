@@ -49,11 +49,11 @@
                                                 <div class="step">
                                                     <div class="mt-5">
                                                         <h4>Felicidades! Tus Certificados Fueron Generados!</h4>
-                                                        <p>Y estan listos para ser descargados</p>
+                                                        <p>Ya estan listos para ser descargados</p>
                                                        <ul>
                                                            @foreach($documents as $document)
                                                             <li>
-                                                                <a class="back-link" target="_blank" href="{{route('certificate.generate.view',['key'=>$document->key,'id'=>$document->id])}}">Descargar - {{$document->config->vehicle->board??''}}</a>
+                                                                <a class="back-link" target="_blank" href="{{route('certificate.generate.view',['key'=>$document->key,'id'=>$document->id])}}">Descargar - {{$document->config->vehicle->name??''}}</a>
                                                             </li>
                                                            @endforeach
                                                        </ul>

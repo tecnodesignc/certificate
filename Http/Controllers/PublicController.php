@@ -2,6 +2,7 @@
 
 namespace Modules\Certificate\Http\Controllers;
 
+use Http;
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Support\Str;
 use Log;
@@ -10,18 +11,12 @@ use Modules\Certificate\Emails\Send;
 use Modules\Certificate\Repositories\DocumentRepository;
 use Modules\Core\Http\Controllers\BasePublicController;
 use Illuminate\Http\Request;
-use Modules\Vehicle\Repositories\VehicleRepository;
 use phpDocumentor\Reflection\DocBlock\Tags\Param;
 use Route;
-
+use Dompdf\Dompdf;
 
 class PublicController extends BasePublicController
 {
-
-    /**
-     * @var VehicleRepository
-     */
-    private VehicleRepository $vehicle;
 
     /**
      * @var DocumentRepository $docuement
@@ -34,10 +29,9 @@ class PublicController extends BasePublicController
      */
     private Mailer $mail;
 
-    public function __construct(VehicleRepository $vehicle, DocumentRepository $document,Mailer $mail)
+    public function __construct(DocumentRepository $document,Mailer $mail)
     {
         parent::__construct();
-        $this->vehicle = $vehicle;
         $this->document = $document;
         $this->mail = $mail;
 
@@ -48,9 +42,8 @@ class PublicController extends BasePublicController
         $account = $request->input('account') ?? 1;
         $user = $this->auth->user();
         $params = ['filter' => ["accounts" => $user->accounts[0]->id ?? $account, 'status'=>true], 'take' => '400', 'include' => []];;
-        $vehicles = $this->vehicle->getItemsBy(json_decode(json_encode($params)));
 
-        return view('certificate::frontend.index', compact('vehicles'));
+        return view('certificate::frontend.index');
 
     }
 
@@ -58,23 +51,45 @@ class PublicController extends BasePublicController
     {
         $params = $request->all();
         $user = $this->auth->user();
-        $account = $user->accounts[0];
-        $data = ['config'=>['account' => ['name' => $account->name, 'nit' => $account->nit,  'email' => $account->email??'N/A' ]],'key'=>md5(Str::random(25).microtime()), 'user_id'=>$user->id];
+        $data = [
+            'config'=> [
+                'account' => [
+                'name' => $user->first_name." ".$user->last_name,
+                'nit' => $user->nit,
+                'email' => $user->email ?? 'N/A'
+                ]
+            ],
+        'key'=>md5(Str::random(25).microtime()),
+        'user_id'=>$user->id
+        ];
 
         if ($params['type_certificate']) {
             $data['template'] = "certificate::frontend.pdf.yellow_machinery";
         } else {
             $data['template'] = "certificate::frontend.pdf.vehicle";
         }
+
         if ($params['certificate_group']) {
             $data['config']['type'] = 1;
-            $data['config']['board'] = implode(', ',$params['vehicle']);
+
+            $placas=[];
+            foreach ($params['vehicle'] as $i=>$board) {
+                $placas[] = json_decode($board);
+            }
+            $data['config']['vehicle'] = $placas;
+
+
+            // $board =  implode(', ',$params['vehicle']);
+            // $data['config']['board'] = json_decode(json_encode($board));
             $doc= $this->document->create($data);
         } else {
             $data['config']['type'] = 0;
             foreach ($params['vehicle'] as $i=>$board) {
-                $vehicle = $this->vehicle->whereByBoard($board);
-                $data['config']['vehicle'] = $vehicle;
+
+                // $vehicle = $this->vehicle->whereByBoard($board);
+                // $data['config']['vehicle'] = $vehicle;
+                $data['config']['vehicle'] = json_decode($board);
+
               $doc[$i]=$this->document->create($data);
             }
         }
@@ -88,30 +103,26 @@ class PublicController extends BasePublicController
 
     public function show($id)
     {
-
-      $documents=$this->document->whereByIds(json_decode($id));
+        $documents=$this->document->whereByIds(json_decode($id));
 
         return view('certificate::frontend.show',compact('documents'));
-
     }
     public function view($key,$id)
     {
-
         $document=$this->document->whereBykey($id,$key);
 
         $view =  \View::make($document->template, compact('document'))->render();
+        set_time_limit(6000);
         $pdf = \App::make('dompdf.wrapper');
-        $pdf->loadHTML($view)->setPaper('letter');
-
-        return $pdf->stream('certificate'.$id.'.pdf');
+        $pdf->loadHtml($view)->setPaper('letter');
+        $fecha = date('Y-m-d');
+        return $pdf->stream("certificate-$id-$fecha.pdf");
     }
 
     private function sendEmail($data, $email){
         $subject = 'Certificados Eje Satelital ';
         $view = 'certificate::frontend.emails.index';
-
         $this->mail->to([$email])->send(new Send($data, $subject, $view));
-
     }
 
 }

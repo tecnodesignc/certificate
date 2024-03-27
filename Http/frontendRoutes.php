@@ -28,5 +28,4 @@ $router->group(['prefix' =>'/certificate'], function (Router $router) {
         'uses' => 'PublicController@view',
     ]);
 
-
 });
