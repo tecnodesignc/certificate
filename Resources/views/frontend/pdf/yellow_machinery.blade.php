@@ -39,7 +39,7 @@
 <div class="content pl-2 pr-5">
     <div class="row">
         <div class="col-6">
-            {{-- <img src="{{Theme::url('images/logo-cer.jpg')}}" alt="Eje Satelital" style="width: 370px"> --}}
+            <img src="{{Theme::url('images/logo-cer.jpg')}}" alt="Eje Satelital" style="width: 370px">
 
         </div>
     </div>
@@ -123,10 +123,10 @@
     </div>
     <div class="row">
         <div class="col-6" style="padding-top: 40px">
-            {{-- <img class="align-bottom" src="{{Theme::url('images/firma-jf.jpg')}}" style="width: 200px" alt="Firma"> --}}
+            <img class="align-bottom" src="{{Theme::url('images/firma-jf.jpg')}}" style="width: 200px" alt="Firma">
         </div>
         <div class="col-sm-6 text-center" style="float: right">
-            {{-- <img class="img-responsive" src="{{Theme::url('images/sello.jpg')}}" style="width: 140px; padding-top: 40px; display: inline; margin-bottom: -80px" alt="sello"> --}}
+            <img class="img-responsive" src="{{Theme::url('images/sello.jpg')}}" style="width: 140px; padding-top: 40px; display: inline; margin-bottom: -80px" alt="sello">
         </div>
     </div>
     <div class="row">
