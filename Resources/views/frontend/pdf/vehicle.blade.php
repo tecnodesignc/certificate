@@ -33,7 +33,7 @@
 
     <div class="row">
         <div class="col-6">
-{{--            <img  src="{{Theme::url('images/logo-cer.jpg')}}" alt="Eje Satelital" style="heigth: 120px; width: 370px">--}}
+            <img  src="{{Theme::url('images/logo-cer.jpg')}}" alt="Eje Satelital" style="heigth: 120px; width: 370px">
         </div>
     </div>
     <div class="row">
