@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@section('title')@setting('core::site-name')@show</title>
     {!! Theme::style('css/bootstrap.min.css?v='.config('app.version')) !!}
+    <link rel="stylesheet" href="http://cdn.datatables.net/2.0.3/css/dataTables.dataTables.min.css">
 </head>
 <body>
 
@@ -17,7 +18,5 @@
 @yield('scripts')
 </body>
 </html>
-
-
 
 

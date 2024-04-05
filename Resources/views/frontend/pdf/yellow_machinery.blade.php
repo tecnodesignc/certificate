@@ -54,11 +54,10 @@
             <p style="margin-top: 30px; text-align: center; font-weight: bold; font-size: 14px">VINCULACIÓN A PLATAFORMA DE RASTREO
                 SATELITAL</p>
             <p style="margin-top: 30px">
-                Mediante la presente, hacemos constancia de la instalación y vinculación a nuestra plataforma
-                de Rastreo Satelital Eje Satelital.
+                Mediante la presente, hacemos constancia de la instalación y vinculación a nuestra plataforma de rastreo satelital - Eje Satelital.
             </p>
             <p>
-                La anterior ha sido efectuada en la maquina relacionada a continuacion:
+                La anterior ha sido efectuada en la máquina relacionada a continuación:
             </p>
             <table class="table table-sm ">
                 <tbody class="justify-content-center align-items-center text-center">
@@ -113,37 +112,51 @@
             <p style="font-weight: bold; text-align: center; border-bottom: solid 1px #000">
                 {{$document->config->account->name??''}} - NIT/CC  {{$document->config->account->nit??''}}
             </p>
+            @php
+                use Carbon\Carbon;
+                $fecha = Carbon::parse($document->created_at)->addMonth()->day(5)->isoFormat('D [de] MMMM [de] YYYY');
+            @endphp
             <p>
-                Para cualquier efecto legal o administrativo que pueda surgir, se deja constancia de la vigencia de este documento, la cual puede ser verificada a través de nuestro correo electrónico info@ejesatelital.com o al teléfono bajo la presente firma.
+                <strong>
+                    Certificamos que este documento es válido a partir del  {{$document->created_at->isoFormat('D [de] MMMM [de] YYYY')}} hasta el {{$fecha}}.
+                </strong>
+                La vigencia y autenticidad de este certificado puede verificarse mediante el correo electrónico info@ejesatelital.com o en la
+                línea telefónica 311 390 9197.
             </p>
             <p>
-                Cordialmente,
+                Además, damos constancia de que el suscrito se encuentra activo en el momento de la expedición de este documento.
             </p>
         </div>
     </div>
-    <div class="row">
-        <div class="col-6" style="padding-top: 40px">
-            <img class="align-bottom" src="{{Theme::url('images/firma-jf.jpg')}}" style="width: 200px" alt="Firma">
+    <footer class="fixed-bottom">
+        <p>
+            Cordialmente,
+        </p>
+        <div class="row">
+            <div class="col-6" style="padding-top: 40px">
+                <img class="align-bottom" src="{{Theme::url('images/firma-jf.jpg')}}" style="width: 200px" alt="Firma">
+            </div>
+            <div class="col-sm-6 text-center" style="float: right">
+                <img class="img-responsive" src="{{Theme::url('images/sello.jpg')}}" style="width: 140px; padding-top: 40px; display: inline; margin-bottom: -80px" alt="sello">
+            </div>
         </div>
-        <div class="col-sm-6 text-center" style="float: right">
-            <img class="img-responsive" src="{{Theme::url('images/sello.jpg')}}" style="width: 140px; padding-top: 40px; display: inline; margin-bottom: -80px" alt="sello">
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-6">
-            <p style="margin: 0">Jhon Fredy Ospina Montoya</p>
-            <p style="margin: 0">Director de Operaciones - Eje Satelital</p>
-            <p style="margin: 0">Teléfono: 311 390 9197</p>
-            <p style="margin: 0"><a href="https://www.ejesatelital.com">www.ejesatelital.com</a></p>
-        </div>
-    </div>
+        <div class="row ">
+            <div class="col-6">
 
-    <div class="row justify-content-center">
-        <div class="col-12 text-center">
-            <p style="margin:40px 0 0; font-weight: bold; color: #a4a4a4">Soporte Técnico Eje Satelital Av. Las Americas No. 81-02 NIT: 34066000-8</p>
-            <p style="margin: 0; font-weight: bold; color: #a4a4a4">Pereira - Risaralda</p>
+                <p style="margin: 0">Cristian Jimenez</p>
+                <p style="margin: 0">Director de Operaciones - Eje Satelital</p>
+                <p style="margin: 0">Telefono: 311 390 9197</p>
+                <p style="margin: 0"><a href="https://www.ejesatelital.com">www.ejesatelital.com</a></p>
+            </div>
         </div>
-    </div>
+
+        <div class="row justify-content-center mb-5">
+            <div class="col-12 text-center" style="font-size: 12px">
+                <p style="margin:40px 0 0; font-weight: bold; color: #a4a4a4">Eje Satelital S.A.S. Av. 30 de Av. Las Americas No 81-02 Corales NIT: 901188980-9</p>
+                <p style="margin: 0; font-weight: bold; color: #a4a4a4">Pereira - Risaralda</p>
+            </div>
+        </div>
+    </footer>
 </div>
 {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> --}}
 

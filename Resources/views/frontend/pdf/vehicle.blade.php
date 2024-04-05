@@ -13,7 +13,8 @@
           crossorigin="anonymous">
    <style>
        @page {
-           margin: 2cm 2cm 1px 3cm;
+           /* margin: 2cm 2cm 1px 3cm; */
+           margin-bottom: 1px;
        }
 
     body{
@@ -28,11 +29,11 @@
 </style>
 </head>
 <body>
-<div class="content">
+<div class="content pl-2 pr-5">
 
     <div class="row">
         <div class="col-6">
-            <img  src="{{Theme::url('images/logo-cer.jpg')}}" alt="Eje Satelital" style="heigth:120px; width: 370px">
+{{--            <img  src="{{Theme::url('images/logo-cer.jpg')}}" alt="Eje Satelital" style="heigth: 120px; width: 370px">--}}
         </div>
     </div>
     <div class="row">
@@ -43,14 +44,14 @@
             <p style="margin-top: 40px">
                 A QUIEN PUEDA INTERESAR
             </p>
-            <p style="margin-top: 40px; text-align: center; font-weight: bold; font-size: 16px">SERVICIO A PLATAFORMA DE RASTREO SATELITAL</p>
+            <p style="margin-top: 40px; text-align: center; font-weight: bold; font-size: 16px">VINCULACIÓN A PLATAFORMA DE RASTREO SATELITAL</p>
             <p style="margin-top: 30px">
-                Mediante la presente, hacemos constancia de tener un acuerdo de concesión entre EJE SATELITAL S.A.S., identificada con NIT. 901188980-9,
+                Mediante la presente, hacemos constancia de tener un acuerdo de concesión entre EJE SATELITAL S.A.S, identificado con NIT. 901188980-9,
                 y <span class="text-uppercase">{{$document->config->account->name}}</span>, identificado con C.C./NIT <strong>{{$document->config->account->nit}}</strong>
             </p>
             <p>
                 Dicho acuerdo incluye la prestación del servicio de ubicación satelital de flota a través de nuestro Aplicativo Web,
-                así como el uso de un terminal propio del cliente.
+                así como el uso de una terminal propia del cliente.
 
                 @if($document->config->type)
                     <table class="table table-sm text-center">
@@ -66,43 +67,54 @@
                     la  placa: </p><p style="text-align: center"> <strong>{{$document->config->vehicle->name}}</strong>
                 @endif
             </p>
-            <p>
-                Ademas damos constancia que el suscrito se encuentra activo en el momento de la expedición de este documento.
-            </p>
-            <p>
-                Este certficado es valido a partir de la fecha; la vigencia y autenticidad de este
-                documento puede verificarse mediante el correo electronico info@ejesatelital.com o en la
-                linea 311 390 9197
-            </p>
 
+                @php
+                    use Carbon\Carbon;
+                    $fecha = Carbon::parse($document->created_at)->addMonth()->day(5)->isoFormat('D [de] MMMM [de] YYYY');
+                @endphp
             <p>
-                Cordialmente,
+                <strong>
+                    Certificamos que este documento es válido a partir del  {{$document->created_at->isoFormat('D [de] MMMM [de] YYYY')}} hasta el {{$fecha}}.
+                </strong>
+                La vigencia y autenticidad de este certificado puede verificarse mediante el correo electrónico info@ejesatelital.com o en la
+                línea telefónica 311 390 9197.
+            </p>
+            <p>
+                Además, damos constancia de que el suscrito se encuentra activo en el momento de la expedición de este documento.
             </p>
         </div>
     </div>
-    <div class="row">
-        <div class="col-6" style="padding-top: 40px">
-            <img class="align-bottom" src="{{Theme::url('images/firma-jf.jpg')}}" style="width: 200px" alt="Firma">
-        </div>
-        <div class="col-sm-6 text-center" style="float: right">
-            <img class="img-responsive" src="{{Theme::url('images/sello.jpg')}}" style="width: 140px; padding-top: 40px; display: inline; margin-bottom: -80px" alt="sello">
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-6">
-            <p style="margin: 0">Jhon Fredy Ospina Montoya</p>
-            <p style="margin: 0">Director de Operaciones - Eje Satelital</p>
-            <p style="margin: 0">Telefono: 311 390 9197</p>
-            <p style="margin: 0"><a href="https://www.ejesatelital.com">www.ejesatelital.com</a></p>
-        </div>
-    </div>
+    <footer class="fixed-bottom">
+        <p>
+            Cordialmente,
+        </p>
+        <div class="row">
 
-    <div class="row justify-content-center">
-        <div class="col-12 text-center" style="font-size: 12px">
-            <p style="margin:40px 0 0; font-weight: bold; color: #a4a4a4">Eje Satelital S.A.S. Av. 30 de Av. Las Americas No 81-02 Corales NIT: 901188980-9</p>
-            <p style="margin: 0; font-weight: bold; color: #a4a4a4">Pereira - Risaralda</p>
+
+            <div class="col-6" style="padding-top: 40px">
+                {{--            <img class="align-bottom" src="{{Theme::url('images/firma-jf.jpg')}}" style="width: 200px" alt="Firma">--}}
+            </div>
+            <div class="col-sm-6 text-center" style="float: right">
+                {{--            <img class="img-responsive" src="{{Theme::url('images/sello.jpg')}}" style="width: 140px; padding-top: 40px; display: inline; margin-bottom: -80px" alt="sello">--}}
+            </div>
         </div>
-    </div>
+        <div class="row ">
+            <div class="col-6">
+
+                <p style="margin: 0">Cristian Jimenez</p>
+                <p style="margin: 0">Director de Operaciones - Eje Satelital</p>
+                <p style="margin: 0">Telefono: 311 390 9197</p>
+                <p style="margin: 0"><a href="https://www.ejesatelital.com">www.ejesatelital.com</a></p>
+            </div>
+        </div>
+
+        <div class="row justify-content-center mb-5">
+            <div class="col-12 text-center" style="font-size: 12px">
+                <p style="margin:40px 0 0; font-weight: bold; color: #a4a4a4">Eje Satelital S.A.S. Av. 30 de Av. Las Americas No 81-02 Corales NIT: 901188980-9</p>
+                <p style="margin: 0; font-weight: bold; color: #a4a4a4">Pereira - Risaralda</p>
+            </div>
+        </div>
+    </footer>
 </div>
 {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> --}}
 </body>

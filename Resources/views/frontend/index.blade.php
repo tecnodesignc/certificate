@@ -6,10 +6,14 @@
 
     @include('certificate::frontend.partial.header')
 
-    <!-- Start contact -->
+
+    <!-- Start contact -->|
     <section id="contact">
+
         <div class="container">
+
             <div class="row">
+
                 <div class="col-lg-12">
                     <div class="card contact-section-card mb-0">
                         <div class="card-body p-md-5">
@@ -77,12 +81,19 @@
                                                 </div>
                                                 {{-- PASO 2 --}}
                                                 <div class="step">
-                                                    <input  id="count_vehicle"
-                                                           type="hidden" value="" >
-                                                    {{-- @if(count($vehicles)) --}}
-                                                    <h4>Selecciona los vehículos para los cuales deseas generar el/los certificado(s).</h4>
-                                                    <div class="form-check ps-0 q-box row">
+                                                    <div id="divObjects"  style="display: inline-block;">
+                                                        <h4>Selecciona vehículos/maquinarias para los cuales deseas generar el/los certificado(s).</h4>
+
+                                                        <button type="button" class="btn btn-primary" id="selectAllBtn">Seleccionar todos</button>
+
+                                                        <table id="tabla" class="table table-striped display nowrap" style="width:100%">
+                                                        </table>
                                                     </div>
+
+                                                    <div id="divNoObjects"  style="display: inline-block;">
+                                                        <h4 class="text-info" >No cuenta con vehículos/maquinarias para generar certificado(s).</h4>
+                                                    </div>
+                                                    <input  id="count_vehicle" type="hidden" value="" >
 
                                                 </div>
                                                 {{-- PASO 3 --}}
@@ -147,8 +158,7 @@
                                                     <button id="prev-btn" class="btn btn-info btn-sm navbar-btn" type="button">Anterior</button>
                                                     <button id="next-btn" class="btn btn-info btn-sm navbar-btn" type="button">Siguiente</button>
                                                     <button id="submit-btn" class="btn btn-info btn-sm navbar-btn" type="submit">Enviar</button>
-                                                    <a id="ini-btn" class="btn btn-info btn-sm navbar-btn" href="{{url('/')}}">Ir a Inicio</a>
-
+                                                    <a id="ini-btn" class="btn btn-info btn-sm navbar-btn" href="{{route('certificate.generate')}}">Ir a Inicio</a>
                                                 </div>
                                             {!! Form::close() !!}
                                         </div>
@@ -176,18 +186,132 @@
 @section('scripts')
 
 @parent
-     <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+    <!-- jQuery -->
+    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdn.datatables.net/2.0.3/js/dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/2.0.3/js/dataTables.bootstrap5.js"></script>
     <!-- Enlace a jQuery y script personalizado -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+        let step = document.getElementsByClassName('step');
+        let iniBtn = document.getElementById('ini-btn');
+        let prevBtn = document.getElementById('prev-btn');
+        let nextBtn = document.getElementById('next-btn');
+        let submitBtn = document.getElementById('submit-btn');
+        let form = document.getElementsByTagName('form')[0];
+        let preloader = document.getElementById('preloader-wrapper');
+        let bodyElement = document.querySelector('body');
+        let succcessDiv = document.getElementById('success');
+        let divObjects = document.getElementById('divObjects');
+        let divNoObjects = document.getElementById('divNoObjects');
+
+        let current_step = 0;
+        let stepCount = 3
+        step[current_step].classList.add('d-block');
+
+        if (current_step == 0) {
+            prevBtn.classList.add('d-none');
+            submitBtn.classList.add('d-none');
+            nextBtn.classList.add('d-inline-block');
+            iniBtn.classList.add('d-none');
+        }
+        const progress = (value) => {
+            document.getElementsByClassName('progress-bar')[0].style.width = `${value}%`;
+        }
+
+        nextBtn.addEventListener('click', () => {
+            current_step++;
+            let previous_step = current_step - 1;
+            if ((current_step > 0) && (current_step <= stepCount)) {
+                prevBtn.classList.remove('d-none');
+                prevBtn.classList.add('d-inline-block');
+
+                divObjects.classList.remove('d-none');
+                divObjects.classList.add('d-inline-block');
+                divNoObjects.classList.remove('d-inline-block');
+                divNoObjects.classList.add('d-none');
+
+                // divObjects.classList.remove('d-inline-block');
+                // divObjects.classList.add('d-none');
+                // divNoObjects.classList.remove('d-none');
+                // divNoObjects.classList.add('d-inline-block');
+
+                step[current_step].classList.remove('d-none');
+                step[current_step].classList.add('d-block');
+                step[previous_step].classList.remove('d-block');
+                step[previous_step].classList.add('d-none');
+                if (current_step === stepCount) {
+                    submitBtn.classList.remove('d-none');
+                    submitBtn.classList.add('d-inline-block');
+                    nextBtn.classList.remove('d-inline-block');
+                    nextBtn.classList.add('d-none');
+                }
+            } else {
+                if (current_step > stepCount) {
+
+                }
+            }
+            if (current_step === 1 && (countVehicle.value==='0'|| countVehicle.value==='')) {
+
+                divObjects.classList.remove('d-inline-block');
+                divObjects.classList.add('d-none');
+                divNoObjects.classList.remove('d-none');
+                divNoObjects.classList.add('d-inline-block');
+
+                nextBtn.classList.remove('d-inline-block');
+                nextBtn.classList.add('d-none');
+            }
+            progress((100 / stepCount) * current_step);
+        });
+
+
+        prevBtn.addEventListener('click', () => {
+            if (current_step > 0) {
+                current_step--;
+                let previous_step = current_step + 1;
+                prevBtn.classList.add('d-none');
+                prevBtn.classList.add('d-inline-block');
+                step[current_step].classList.remove('d-none');
+                step[current_step].classList.add('d-block')
+                step[previous_step].classList.remove('d-block');
+                step[previous_step].classList.add('d-none');
+                if (current_step < stepCount) {
+                    submitBtn.classList.remove('d-inline-block');
+                    submitBtn.classList.add('d-none');
+                    nextBtn.classList.remove('d-none');
+                    nextBtn.classList.add('d-inline-block');
+                    prevBtn.classList.remove('d-none');
+                    prevBtn.classList.add('d-inline-block');
+                    iniBtn.classList.add('d-none');
+                    iniBtn.classList.remove('d-inline-block');
+                }
+            }
+            if (current_step === 0) {
+                prevBtn.classList.remove('d-inline-block');
+                prevBtn.classList.add('d-none');
+
+                divObjects.classList.remove('d-none');
+                divObjects.classList.add('d-inline-block');
+
+            }
+            progress((100 / stepCount) * current_step);
+        });
+
+    </script>
+
+
 
     <!-- Código para mostrar y ocultar el modal -->
     <script type="application/javascript">
 
         $(document).ready(function() {
+
             // Mostrar modal de procesamiento al inicio
             $('#divProcessingElement').show();
+            nextBtn.classList.remove('d-inline-block');
+            nextBtn.classList.add('d-none');
 
             // Realizar la solicitud GET con Axios
             const route = "{{ route('api.traccar.device.index') }}";
@@ -220,7 +344,10 @@
                 setTimeout(function() {
                     $('#successData').hide(); // Ocultar el elemento después de 3000 ms (3 segundos)
                     $('#div_select_type').css('display', 'block');
-                }, 1000);
+                    nextBtn.classList.remove('d-none');
+                    nextBtn.classList.add('d-inline-block');
+                    $("#type_certificate").prop('selectedIndex', 0);
+                }, 750);
             })
             .catch(error => {
                 // Cerrar Div de procesamiento en caso de error
@@ -230,11 +357,47 @@
                 console.error('Error:', error);
                 console.log('Error en la importación2');
             });
+
+        $('#selectAllBtn').click(function () {
+            var isChecked = $(this).text() === 'Seleccionar Todos'; // Verifica el estado actual del botón
+            $('input[type="checkbox"]').prop('checked', isChecked); // Selecciona todos los checkboxes si isChecked es true, de lo contrario los deselecciona
+
+            // Cambia el texto del botón según el estado actual
+            $(this).text(isChecked ? 'Deseleccionar Todos' : 'Seleccionar Todos');
+        });
         });
     </script>
 
     <script type="application/javascript" >
+        // Referencia a la tabla DataTable
+        var dataTable = $('#tabla').DataTable({
+                    columns: [
+                        { title: "Placa" }
+                    ],
+                    lengthMenu: [10, 25, 100, { label: 'Todos', value: -1 }],
+                    responsive:true,
+                    language: {
+                        "processing": "Procesando...",
+                        "lengthMenu": "Mostrar _MENU_ registros",
+                        "zeroRecords": "No se encontraron resultados",
+                        "emptyTable": "Ningún dato disponible en esta tabla",
+                        "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                        "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+                        "search": "Buscar:",
+                        "loadingRecords": "Cargando...",
+                        "paginate": {
+                            "first": "Primero",
+                            "last": "Último",
+                            "next": "Siguiente",
+                            "previous": "Anterior"
+                        },
+                        "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+                    },
+                    });
 
+        var countVehicle = document.getElementById('count_vehicle');
+
+        // metodo que nos filtra la data de acuerdo al tipo del vehiculo seleccionado
         function insertParam() {
             var type_certificate = $("#type_certificate").val();
             var individualRadio = document.getElementById('box-certificate_group_1');
@@ -245,28 +408,30 @@
             vehiculosData.data.forEach(data => {
                 if (type_certificate == 0 && data.type === "") {
                     dataWithEmptyType.push(data);
-                } else if (type_certificate == 1 && data.type !== "") {
+                } else if (type_certificate == 1 && data.type === "maquinaria") {
                     dataWithType.push(data);
                 }
             });
 
             // Contar la cantidad de registros
             count = (type_certificate == 0) ? dataWithEmptyType.length : dataWithType.length;
-            countVehicle = document.getElementById('count_vehicle');
             countVehicle.value = count;
 
+            //ocultamos para cuando sea maquina amarilla el boton de integrado
             if (type_certificate == 0) {
                 individualRadio.style.display = 'block';
             }else{
                 individualRadio.style.display = 'none';
             }
 
-            // Llenar dinámicamente el contenido de la interfaz de usuario con los vehículos recibidos
-            vehicleContainer = document.querySelector('.q-box');
-            vehicleContainer.innerHTML = ''; // Limpiar el contenedor antes de agregar nuevos elementos
-
             var filteredData = (type_certificate == 0) ? dataWithEmptyType : dataWithType;
 
+            $('#selectAllBtn').text('Seleccionar Todos');
+
+            // Limpiar la tabla antes de agregar nuevos datos
+            dataTable.clear().draw();
+
+            // Llenar la tabla con los datos filtrados
             filteredData.forEach(data => {
                 const formData = {
                     id: data.id,
@@ -280,20 +445,17 @@
                 };
                 const vehicleJSON = JSON.stringify(formData);
 
-                const vehicleElement = document.createElement('div');
-
-                vehicleElement.className = 'q-box__question col-12 vehicle-' + data.name + 'id="vehicle-"'+data.name;
-                vehicleElement.innerHTML = `
-                    <input class="form-check-input question__input" name="vehicle[]" type="checkbox" value='${vehicleJSON}' id="vehicle-${data.id}">
-                    <label class="form-check-label question__label" for="vehicle-${data.id}">${data.name}</label>
-                `;
-                vehicleContainer.appendChild(vehicleElement);
-            }
-
-            );
-
+                    dataTable.row.add([
+                        `
+                            <input class="form-check-input question__input" name="vehicle[]" type="checkbox" value='${vehicleJSON}' id="vehicle-${data.id}">
+                            <label class="form-check-label question__label" for="vehicle-${data.id}">${data.name}</label>
+                        `
+                    ]).draw(false);
+                });
         }
+
     </script>
+
 
     <script>
         function send() {
@@ -310,116 +472,6 @@
             }
         }
     </script>
-
-
-<script>
-    let step = document.getElementsByClassName('step');
-    let iniBtn = document.getElementById('ini-btn');
-    let prevBtn = document.getElementById('prev-btn');
-    let nextBtn = document.getElementById('next-btn');
-    let submitBtn = document.getElementById('submit-btn');
-    let form = document.getElementsByTagName('form')[0];
-    let preloader = document.getElementById('preloader-wrapper');
-    let bodyElement = document.querySelector('body');
-    let succcessDiv = document.getElementById('success');
-
-    let current_step = 0;
-    let stepCount = 3
-    step[current_step].classList.add('d-block');
-
-    if (current_step == 0) {
-        prevBtn.classList.add('d-none');
-        submitBtn.classList.add('d-none');
-        nextBtn.classList.add('d-inline-block');
-        iniBtn.classList.add('d-none');
-    }
-    const progress = (value) => {
-        document.getElementsByClassName('progress-bar')[0].style.width = `${value}%`;
-    }
-    nextBtn.addEventListener('click', () => {
-        current_step++;
-        let previous_step = current_step - 1;
-        if ((current_step > 0) && (current_step <= stepCount)) {
-            prevBtn.classList.remove('d-none');
-            prevBtn.classList.add('d-inline-block');
-            step[current_step].classList.remove('d-none');
-            step[current_step].classList.add('d-block');
-            step[previous_step].classList.remove('d-block');
-            step[previous_step].classList.add('d-none');
-            if (current_step === stepCount) {
-                submitBtn.classList.remove('d-none');
-                submitBtn.classList.add('d-inline-block');
-                nextBtn.classList.remove('d-inline-block');
-                nextBtn.classList.add('d-none');
-            }
-        } else {
-            if (current_step > stepCount) {
-
-            }
-        }
-        if (current_step === 1 && countVehicle.value==='0') {
-            prevBtn.classList.remove('d-inline-block');
-            prevBtn.classList.add('d-none');
-            nextBtn.classList.remove('d-inline-block');
-            nextBtn.classList.add('d-none');
-            iniBtn.classList.remove('d-none');
-            iniBtn.classList.add('d-inline-block');
-
-        }
-        progress((100 / stepCount) * current_step);
-    });
-
-
-    prevBtn.addEventListener('click', () => {
-        if (current_step > 0) {
-            current_step--;
-            let previous_step = current_step + 1;
-            prevBtn.classList.add('d-none');
-            prevBtn.classList.add('d-inline-block');
-            step[current_step].classList.remove('d-none');
-            step[current_step].classList.add('d-block')
-            step[previous_step].classList.remove('d-block');
-            step[previous_step].classList.add('d-none');
-            if (current_step < stepCount) {
-                submitBtn.classList.remove('d-inline-block');
-                submitBtn.classList.add('d-none');
-                nextBtn.classList.remove('d-none');
-                nextBtn.classList.add('d-inline-block');
-                prevBtn.classList.remove('d-none');
-                prevBtn.classList.add('d-inline-block');
-                iniBtn.classList.add('d-none');
-                iniBtn.classList.remove('d-inline-block');
-            }
-        }
-        if (current_step === 0) {
-            prevBtn.classList.remove('d-inline-block');
-            prevBtn.classList.add('d-none');
-        }
-        progress((100 / stepCount) * current_step);
-    });
-
-
-   /* submitBtn.addEventListener('click', () => {
-        preloader.classList.add('d-block');
-
-        const timer = ms => new Promise(res => setTimeout(res, ms));
-
-        timer(3000)
-            .then(() => {
-                bodyElement.classList.add('loaded');
-            }).then(() => {
-            step[stepCount].classList.remove('d-block');
-            step[stepCount].classList.add('d-none');
-            prevBtn.classList.remove('d-inline-block');
-            prevBtn.classList.add('d-none');
-            submitBtn.classList.remove('d-inline-block');
-            submitBtn.classList.add('d-none');
-            succcessDiv.classList.remove('d-none');
-            succcessDiv.classList.add('d-block');
-        })
-
-    });*/
-</script>
 
 
 <style>

@@ -40,9 +40,9 @@
                                     <!-- FORMS -->
                                     <div class="col-lg-7 mx-0 px-0">
                                         <div class="progress">
-                                            <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="50"
+                                            <div aria-valuemax="100%" aria-valuemin="0" aria-valuenow="50"
                                                  class="progress-bar progress-bar-striped progress-bar-animated bg-info"
-                                                 role="progressbar" style="width: 0%"></div>
+                                                 role="progressbar" style="width: 100%"></div>
                                         </div>
                                         <div id="qbox-container">
                                             <div id="steps-container">
@@ -53,23 +53,21 @@
                                                        <ul>
                                                            @foreach($documents as $document)
                                                             <li>
-                                                                <a class="back-link" target="_blank" href="{{route('certificate.generate.view',['key'=>$document->key,'id'=>$document->id])}}">Descargar - {{$document->config->vehicle->name??''}}</a>
+                                                                <a class="back-link text-success" target="_blank" href="{{route('certificate.generate.view',['key'=>$document->key,'id'=>$document->id])}}">Descargar - {{$document->config->vehicle->name??''}}</a>
                                                             </li>
                                                            @endforeach
                                                        </ul>
-
                                                     </div>
                                                 </div>
+                                            </div>
+                                            <div class="text-center">
+                                                <a href="{{route('certificate.generate')}}" class="btn btn-info">Generar Certificado</a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div id="preloader-wrapper">
-                                <div id="preloader"></div>
-                                <div class="preloader-section section-left"></div>
-                                <div class="preloader-section section-right"></div>
-                            </div>
+
                         </div>
                     </div>
                 </div>

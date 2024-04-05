@@ -77,20 +77,12 @@ class PublicController extends BasePublicController
                 $placas[] = json_decode($board);
             }
             $data['config']['vehicle'] = $placas;
-
-
-            // $board =  implode(', ',$params['vehicle']);
-            // $data['config']['board'] = json_decode(json_encode($board));
             $doc= $this->document->create($data);
         } else {
             $data['config']['type'] = 0;
             foreach ($params['vehicle'] as $i=>$board) {
-
-                // $vehicle = $this->vehicle->whereByBoard($board);
-                // $data['config']['vehicle'] = $vehicle;
                 $data['config']['vehicle'] = json_decode($board);
-
-              $doc[$i]=$this->document->create($data);
+                $doc[$i]=$this->document->create($data);
             }
         }
         $doc= collect(is_array($doc) ? $doc: [$doc]);
