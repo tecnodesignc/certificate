@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="description" content="@setting('core::site-description')"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     {{-- <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> --}}
-    {{-- <meta http-equiv="X-UA-Compatible" content="ie=edge"> --}}
     <title>Certificado de Vehiculo - Eje Satelital</title>
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -18,8 +18,8 @@
        }
 
     body{
-            font-family: 'Time Roman';
-            font-size: 16px;
+            font-family: 'Times New Roman', 'Times', 'serif';
+            font-size: 14px;
             text-align: justify;
         }
 
@@ -30,7 +30,6 @@
 </head>
 <body>
 <div class="content pl-2 pr-5">
-
     <div class="row">
         <div class="col-6">
             <img  src="{{Theme::url('images/logo-cer.jpg')}}" alt="Eje Satelital" style="heigth: 120px; width: 370px">
@@ -52,9 +51,12 @@
             <p>
                 Dicho acuerdo incluye la prestación del servicio de ubicación satelital de flota a través de nuestro Aplicativo Web,
                 así como el uso de una terminal propia del cliente.
+            </p>
 
+            <div class="row text-center">
                 @if($document->config->type)
-                    <table class="table table-sm text-center">
+                <strong>  Las placas:</strong>
+                <table class="table table-sm text-center">
                         <tbody>
                             @foreach ($document->config->vehicle as $vehicle)
                                 <tr>
@@ -64,58 +66,54 @@
                         </tbody>
                     </table>
                 @else
-                    la  placa: </p><p style="text-align: center"> <strong>{{$document->config->vehicle->name}}</strong>
+                <strong>   La placa: <p class="m-0">{{trim($document->config->vehicle->name)}}</p></strong>
                 @endif
-            </p>
+            </div>
 
+            <div class="row m-1 mt-3">
                 @php
                     use Carbon\Carbon;
                     $fecha = Carbon::parse($document->created_at)->addMonth()->day(5)->isoFormat('D [de] MMMM [de] YYYY');
                 @endphp
+                <p>
+                    <strong>
+                        Certificamos que este documento es válido a partir del  {{$document->created_at->isoFormat('D [de] MMMM [de] YYYY')}} hasta el {{$fecha}}.
+                    </strong>
+                    La vigencia y autenticidad de este certificado puede verificarse mediante el correo electrónico info@ejesatelital.com o en la
+                    línea telefónica 311 390 9197. Además, damos constancia de que el suscrito se encuentra activo en el momento de la expedición de este documento.
+                </p>
+            </div>
             <p>
-                <strong>
-                    Certificamos que este documento es válido a partir del  {{$document->created_at->isoFormat('D [de] MMMM [de] YYYY')}} hasta el {{$fecha}}.
-                </strong>
-                La vigencia y autenticidad de este certificado puede verificarse mediante el correo electrónico info@ejesatelital.com o en la
-                línea telefónica 311 390 9197.
-            </p>
-            <p>
-                Además, damos constancia de que el suscrito se encuentra activo en el momento de la expedición de este documento.
+                Cordialmente,
             </p>
         </div>
     </div>
-    <footer class="fixed-bottom">
-        <p>
-            Cordialmente,
-        </p>
+    <div class="row">
         <div class="row">
 
 
             <div class="col-6" style="padding-top: 40px">
-                {{--            <img class="align-bottom" src="{{Theme::url('images/firma-jf.jpg')}}" style="width: 200px" alt="Firma">--}}
+                <img class="align-bottom" src="{{Theme::url('images/firma-jf.png')}}" style="width: 200px" alt="Firma">
             </div>
             <div class="col-sm-6 text-center" style="float: right">
-                {{--            <img class="img-responsive" src="{{Theme::url('images/sello.jpg')}}" style="width: 140px; padding-top: 40px; display: inline; margin-bottom: -80px" alt="sello">--}}
+                <img class="img-responsive" src="{{Theme::url('images/sello.jpg')}}" style="width: 140px; padding-top: 40px; display: inline; margin-bottom: -80px" alt="sello">
             </div>
         </div>
-        <div class="row ">
+        <div class="row">
             <div class="col-6">
-
                 <p style="margin: 0">Cristian Jimenez</p>
                 <p style="margin: 0">Director de Operaciones - Eje Satelital</p>
                 <p style="margin: 0">Telefono: 311 390 9197</p>
                 <p style="margin: 0"><a href="https://www.ejesatelital.com">www.ejesatelital.com</a></p>
             </div>
         </div>
-
         <div class="row justify-content-center mb-5">
             <div class="col-12 text-center" style="font-size: 12px">
-                <p style="margin:40px 0 0; font-weight: bold; color: #a4a4a4">Eje Satelital S.A.S. Av. 30 de Av. Las Americas No 81-02 Corales NIT: 901188980-9</p>
+                <p style="margin:30px 0 0; font-weight: bold; color: #a4a4a4">Eje Satelital S.A.S. Av. 30 de Av. Las Americas No 81-02 Corales NIT: 901188980-9</p>
                 <p style="margin: 0; font-weight: bold; color: #a4a4a4">Pereira - Risaralda</p>
             </div>
         </div>
-    </footer>
+    </div>
 </div>
-{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> --}}
 </body>
 </html>

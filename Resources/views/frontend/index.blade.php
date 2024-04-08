@@ -81,12 +81,11 @@
                                                 </div>
                                                 {{-- PASO 2 --}}
                                                 <div class="step">
+
                                                     <div id="divObjects"  style="display: inline-block;">
                                                         <h4>Selecciona vehículos/maquinarias para los cuales deseas generar el/los certificado(s).</h4>
 
-                                                        <button type="button" class="btn btn-primary" id="selectAllBtn">Seleccionar todos</button>
-
-                                                        <table id="tabla" class="table table-striped display nowrap" style="width:100%">
+                                                        <table id="tabla" class="display" style="width:100%">
                                                         </table>
                                                     </div>
 
@@ -187,10 +186,10 @@
 
 @parent
     <!-- jQuery -->
-    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="https://cdn.datatables.net/2.0.3/js/dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/2.0.3/js/dataTables.bootstrap5.js"></script>
+
     <!-- Enlace a jQuery y script personalizado -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
@@ -232,11 +231,6 @@
                 divObjects.classList.add('d-inline-block');
                 divNoObjects.classList.remove('d-inline-block');
                 divNoObjects.classList.add('d-none');
-
-                // divObjects.classList.remove('d-inline-block');
-                // divObjects.classList.add('d-none');
-                // divNoObjects.classList.remove('d-none');
-                // divNoObjects.classList.add('d-inline-block');
 
                 step[current_step].classList.remove('d-none');
                 step[current_step].classList.add('d-block');
@@ -301,8 +295,6 @@
 
     </script>
 
-
-
     <!-- Código para mostrar y ocultar el modal -->
     <script type="application/javascript">
 
@@ -358,13 +350,6 @@
                 console.log('Error en la importación2');
             });
 
-        $('#selectAllBtn').click(function () {
-            var isChecked = $(this).text() === 'Seleccionar Todos'; // Verifica el estado actual del botón
-            $('input[type="checkbox"]').prop('checked', isChecked); // Selecciona todos los checkboxes si isChecked es true, de lo contrario los deselecciona
-
-            // Cambia el texto del botón según el estado actual
-            $(this).text(isChecked ? 'Deseleccionar Todos' : 'Seleccionar Todos');
-        });
         });
     </script>
 
@@ -372,10 +357,12 @@
         // Referencia a la tabla DataTable
         var dataTable = $('#tabla').DataTable({
                     columns: [
-                        { title: "Placa" }
+                        {
+                            orderable: false,
+                            title: '<button type="button" class="btn btn-primary" id="selectAllBtn">Seleccionar todos</button>'
+                        }
                     ],
                     lengthMenu: [10, 25, 100, { label: 'Todos', value: -1 }],
-                    responsive:true,
                     language: {
                         "processing": "Procesando...",
                         "lengthMenu": "Mostrar _MENU_ registros",
@@ -388,8 +375,8 @@
                         "paginate": {
                             "first": "Primero",
                             "last": "Último",
-                            "next": "Siguiente",
-                            "previous": "Anterior"
+                            "next": ">>",
+                            "previous": "<<"
                         },
                         "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
                     },
@@ -426,8 +413,6 @@
 
             var filteredData = (type_certificate == 0) ? dataWithEmptyType : dataWithType;
 
-            $('#selectAllBtn').text('Seleccionar Todos');
-
             // Limpiar la tabla antes de agregar nuevos datos
             dataTable.clear().draw();
 
@@ -452,10 +437,27 @@
                         `
                     ]).draw(false);
                 });
-        }
+            }
+
+            // Función para manejar el cambio de página en la tabla
+            dataTable.on('draw', function () {
+                // Marcar o desmarcar todas las casillas de verificación según el estado del botón
+                var isChecked = $('#selectAllBtn').text() === 'Deseleccionar todos';
+                $('input[type="checkbox"]').prop('checked', isChecked);
+            });
+
+            // Manejar el evento click del botón "Seleccionar todos"
+            $('#selectAllBtn').click(function () {
+                var isChecked = $(this).text() === 'Seleccionar todos';
+
+                // Marcar o desmarcar todas las casillas de verificación según el estado actual del botón
+                $('input[type="checkbox"]').prop('checked', isChecked);
+
+                // Cambiar el texto del botón según el estado actual
+                $(this).text(isChecked ? 'Deseleccionar todos' : 'Seleccionar todos');
+            });
 
     </script>
-
 
     <script>
         function send() {
@@ -480,7 +482,6 @@
         display: none;
     }
     /* TITLE */
-
     #title-container {
         min-height: 460px;
         height: 100%;
