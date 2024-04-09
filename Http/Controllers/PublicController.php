@@ -56,7 +56,10 @@ class PublicController extends BasePublicController
                 'account' => [
                 'name' => $user->first_name." ".$user->last_name,
                 'nit' => $user->nit,
-                'email' => $user->email ?? 'N/A'
+                'email' => $user->email ?? 'N/A',
+                "nameSender" => $request->nameSender,
+                "idSender" => $request->idSender,
+                "addressee" => $request->addressee ?? null
                 ]
             ],
         'key'=>md5(Str::random(25).microtime()),

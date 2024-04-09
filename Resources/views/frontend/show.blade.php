@@ -61,7 +61,7 @@
                                                 </div>
                                             </div>
                                             <div class="text-center">
-                                                <a href="{{route('certificate.generate')}}" class="btn btn-info">Generar Certificado</a>
+                                                <a href="{{route('certificate.generate')}}" class="btn btn-info">Generar nuevo certificado</a>
                                             </div>
                                         </div>
                                     </div>

@@ -7,10 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <title>Certificado de Vehiculo - Eje Satelital</title>
-    <link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
     <style>
         @page {
             /* margin-left: '2.54cm'; */
@@ -42,16 +40,15 @@
             <img src="{{Theme::url('images/logo-cer.jpg')}}" alt="Eje Satelital" style="width: 370px">
         </div>
     </div>
-    <div class="row">
         <div class="col-12">
-            <p style="margin-top: 30px">
+            <p style="margin-top: 20px">
                 Pereira, {{$document->created_at->isoFormat('D [de] MMMM [de] YYYY')}}
             </p>
-            <p style="margin-top: 40px">
+            <p style="margin-top: 30px">
                 A QUIEN PUEDA INTERESAR
             </p>
-            <p style="margin-top: 30px; text-align: center; font-weight: bold; font-size: 14px">VINCULACIÓN A PLATAFORMA DE RASTREO
-                SATELITAL</p>
+            <h5 style="margin-top: 30px; text-align: center; font-weight: bold">VINCULACIÓN A PLATAFORMA DE RASTREO
+                SATELITAL</h5>
             <p style="margin-top: 30px">
                 Mediante la presente, hacemos constancia de la instalación y vinculación a nuestra plataforma de rastreo satelital - Eje Satelital.
             </p>
@@ -105,50 +102,37 @@
                 para Transmisión Satelital enviando GPRS con cobertura nacional bajo el siguiente usuario para efectos de login en la plataforma:
                 información a través de {{$document->config->account->email??'N/A'}} y la contraseña suministrada a dicho correo.
             </p>
-            <p>
-                La presente se realiza para constancia y uso del cliente/empresa:
-            </p>
-            <p style="font-weight: bold; text-align: center; border-bottom: solid 1px #000">
-                {{$document->config->account->name??''}} - NIT/CC  {{$document->config->account->nit??''}}
-            </p>
-            @php
-                use Carbon\Carbon;
-                $fecha = Carbon::parse($document->created_at)->addMonth()->day(5)->isoFormat('D [de] MMMM [de] YYYY');
-            @endphp
-            <p>
-                <strong>
-                    Certificamos que este documento es válido a partir del  {{$document->created_at->isoFormat('D [de] MMMM [de] YYYY')}} hasta el {{$fecha}}.
-                </strong>
-                La vigencia y autenticidad de este certificado puede verificarse mediante el correo electrónico info@ejesatelital.com o en la
-                línea telefónica 311 390 9197. Además, damos constancia de que el suscrito se encuentra activo en el momento de la expedición de este documento.
-            </p>
+
+                <p class="mt-3">
+                    La vigencia y autenticidad de este certificado puede verificarse mediante el correo electrónico info@ejesatelital.com o en la línea telefónica 311 390 9197.
+                    Además, damos constancia de que el suscrito se encuentra activo en el momento de la expedición de este documento.
+                </p>
+                @php
+                    use Carbon\Carbon;
+                    $fecha = Carbon::parse($document->created_at)->addMonth()->day(5)->isoFormat('D [de] MMMM [de] YYYY');
+                @endphp
+                <p>
+                    <strong>El presente documento tendrá validez hasta el {{$fecha}}.</strong>
+                </p>
             <p>
                 Cordialmente,
             </p>
         </div>
-    </div>
-    <div class="row">
-        <div class="row">
-            <div class="col-6" style="padding-top: 40px">
-                <img class="align-bottom" src="{{Theme::url('images/firma-jf.png')}}" style="width: 200px" alt="Firma">
-            </div>
-            <div class="col-sm-6 text-center" style="float: right">
-                <img class="img-responsive" src="{{Theme::url('images/sello.jpg')}}" style="width: 140px; padding-top: 40px; display: inline; margin-bottom: -80px" alt="sello">
-            </div>
+
+        <div class="col-12 pt-2 d-flex justify-content-between align-items-center mt-2">
+            <img src="{{Theme::url('images/firma-jf.png')}}" alt="Firma" style="width: 200px;" class="img-fluid">
+            <img src="{{Theme::url('images/sello.jpg')}}" alt="Sello" style="width: 100px;" class="img-fluid float-right">
         </div>
-        <div class="row">
-            <div class="col-6">
-                <p style="margin: 0">Cristian Jimenez</p>
-                <p style="margin: 0">Director de Operaciones - Eje Satelital</p>
-                <p style="margin: 0">Telefono: 311 390 9197</p>
-                <p style="margin: 0"><a href="https://www.ejesatelital.com">www.ejesatelital.com</a></p>
-            </div>
+
+        <div class="col-12">
+            <p class="m-0">Cristian Jimenez</p>
+            <p class="m-0">Director de Operaciones - Eje Satelital</p>
+            <p class="m-0">Telefono: 311 390 9197</p>
+            <p class="m-0"><a href="https://www.ejesatelital.com">www.ejesatelital.com</a></p>
         </div>
-        <div class="row justify-content-center mb-5">
-            <div class="col-12 text-center" style="font-size: 12px">
-                <p style="margin:30px 0 0; font-weight: bold; color: #a4a4a4">Eje Satelital S.A.S. Av. 30 de Av. Las Americas No 81-02 Corales NIT: 901188980-9</p>
-                <p style="margin: 0; font-weight: bold; color: #a4a4a4">Pereira - Risaralda</p>
-            </div>
+        <div class="col-12 mt-5 text-center" style="font-size: 12px">
+                <p class="text-secondary font-weight-bold m-0">Eje Satelital S.A.S. Av. 30 de Av. Las Americas No 81-02 Corales NIT: 901188980-9</p>
+                <p class="text-secondary font-weight-bold m-0">Pereira - Risaralda</p>
         </div>
     </div>
 </div>

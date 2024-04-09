@@ -48,7 +48,7 @@
                                                  role="progressbar" style="width: 0%"></div>
                                         </div>
                                         <div id="qbox-container">
-                                            {!! Form::open(['route' => ['certificate.generate.send'], 'method' => 'post', 'files'=>true , 'class'=>'needs-validation ','novalidate', 'id'=>'form-wrapper', 'name'=>"form-wrapper" ]) !!}
+                                            {!! Form::open(['route' => ['certificate.generate.send'], 'method' => 'post', 'files'=>true , 'class'=>'needs-validation ', 'id'=>'form-wrapper', 'name'=>"form-wrapper" ]) !!}
                                             <div id="steps-container">
                                                 {{-- PASO 1 --}}
                                                 <div class="step">
@@ -65,6 +65,7 @@
                                                             <h5 class="text-success" id="successDataLabel" style="display: inline-block;">Datos sincronizados con exito!</h5>
                                                         </div>
                                                     </div>
+
                                                     <div id="div_select_type" style="display: none;">
                                                         <h4>Seleccione el tipo de certificado que desea generar.</h4>
                                                         <div class="mt-1">
@@ -83,21 +84,21 @@
                                                 <div class="step">
 
                                                     <div id="divObjects"  style="display: inline-block;">
-                                                        <h4>Selecciona vehículos/maquinarias para los cuales deseas generar el/los certificado(s).</h4>
+                                                        <h4>Selecciona el/los campo(s) para generar el/los certificado(s).</h4>
 
                                                         <table id="tabla" class="display" style="width:100%">
                                                         </table>
                                                     </div>
 
                                                     <div id="divNoObjects"  style="display: inline-block;">
-                                                        <h4 class="text-info" >No cuenta con vehículos/maquinarias para generar certificado(s).</h4>
+                                                        <h4 class="text-info" >No cuenta con datos para generar certificado(s).</h4>
                                                     </div>
                                                     <input  id="count_vehicle" type="hidden" value="" >
 
                                                 </div>
                                                 {{-- PASO 3 --}}
                                                 <div class="step">
-                                                    <h4>¿Prefiere un certificado individual para cada vehículo o uno integrado para todos?</h4>
+                                                    <h4>¿Prefiere un certificado individual por cada campo seleccionado o uno integrado para todos?</h4>
                                                     <div class="form-check ps-0 q-box">
                                                         <div class="q-box__question">
                                                             <input class="form-check-input question__input"
@@ -118,47 +119,59 @@
                                                 {{-- PASO 4 --}}
                                                 <div class="step">
                                                     <h4>¿Prefiere descargar o enviar el/los certificado(s)?</h4>
-                                                   <div class="row">
-                                                       <div class="col-6">
-                                                           <div class="form-check ps-0 q-box">
-                                                               <div class="q-box__question">
-                                                                   <input
-                                                                       class="form-check-input question__input q-checkbox"
-                                                                       id="send_type_download" name="send_type" type="checkbox"
-                                                                       value="1" checked>
-                                                                   <label class="form-check-label question__label"
-                                                                          for="send_type_download">Descargar</label>
-                                                               </div>
-                                                           </div>
-                                                       </div>
-                                                       <div class="col-6">
-                                                           <div class="form-check ps-0 q-box">
-                                                               <div class="q-box__question">
-                                                                   <input class="form-check-input question__input"
-                                                                          id="send_type_email" name="send_type" type="checkbox"
-                                                                          value="2" onclick="send()">
-                                                                   <label class="form-check-label question__label"
-                                                                          for="send_type_email">Enviar</label>
-                                                               </div>
-                                                           </div>
-                                                       </div>
-                                                       <div class="col-12">
-                                                           <div class="mt-2" id="email-box" style="display:none">
-                                                               <label class="form-label">Email:</label>
-                                                               <input class="form-control" id="email" name="email"
-                                                                      type="email"  >
-                                                           </div>
-                                                       </div>
-                                                   </div>
+                                                    <div class="row mt-1">
+                                                        <div class="col-6">
+                                                            <div class="form-check ms-0 ps-0 q-box">
+                                                                <div class="q-box__question">
+                                                                    <input
+                                                                        class="form-check-input question__input q-checkbox"
+                                                                        id="send_type_download" name="send_type" type="checkbox"
+                                                                        value="1" checked required>
+                                                                    <label class="form-check-label question__label"
+                                                                            for="send_type_download">Descargar</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <div class="form-check ms-0 ps-0 q-box">
+                                                                <div class="q-box__question">
+                                                                    <input class="form-check-input question__input exclude-select"
+                                                                            id="send_type_email" name="send_type" type="checkbox"
+                                                                            value="2" onclick="send()">
+                                                                    <label class="form-check-label question__label"
+                                                                            for="send_type_email">Enviar</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
 
+                                                        <div class="col-12" id="divSender" style="display: none;">
+                                                            <div class="col-12 mt-2">
+                                                                <label for="">Nombre o razón social *</label>
+                                                                <input class="form-control" type="text" name="nameSender" id="txtNameSender">
+                                                                <label for="" class="mt-2">CC o NIT *</label>
+                                                                <input class="form-control " type="text" name="idSender" id="txtIdSender">
+                                                            </div>
+                                                            <div class="col-12 mt-2">
+                                                                <label for="">A quién va dirigido el certificado (opcional)</label>
+                                                                <input type="text" name="addressee" id="txtAddressee" class="form-control mt-2 bg-light" placeholder="Por defecto: A QUIEN PUEDA INTERESAR">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-12">
+                                                            <div class="mt-2" id="email-box" style="display:none">
+                                                                <label class="form-label">Email:</label>
+                                                                <input class="form-control" id="email" name="email" type="email">
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                </div>
-                                                <div id="q-box__buttons">
-                                                    <button id="prev-btn" class="btn btn-info btn-sm navbar-btn" type="button">Anterior</button>
-                                                    <button id="next-btn" class="btn btn-info btn-sm navbar-btn" type="button">Siguiente</button>
-                                                    <button id="submit-btn" class="btn btn-info btn-sm navbar-btn" type="submit">Enviar</button>
-                                                    <a id="ini-btn" class="btn btn-info btn-sm navbar-btn" href="{{route('certificate.generate')}}">Ir a Inicio</a>
-                                                </div>
+                                            </div>
+                                            <div id="q-box__buttons">
+                                                <button id="prev-btn" class="btn btn-info btn-sm navbar-btn" type="button">Anterior</button>
+                                                <button id="next-btn" class="btn btn-info btn-sm navbar-btn" type="button">Siguiente</button>
+                                                <button id="submit-btn" class="btn btn-info btn-sm navbar-btn" type="submit">Enviar</button>
+                                                <a id="ini-btn" class="btn btn-info btn-sm navbar-btn" href="{{route('certificate.generate')}}">Ir a Inicio</a>
+                                            </div>
                                             {!! Form::close() !!}
                                         </div>
                                     </div>
@@ -260,7 +273,6 @@
             progress((100 / stepCount) * current_step);
         });
 
-
         prevBtn.addEventListener('click', () => {
             if (current_step > 0) {
                 current_step--;
@@ -288,7 +300,6 @@
 
                 divObjects.classList.remove('d-none');
                 divObjects.classList.add('d-inline-block');
-
             }
             progress((100 / stepCount) * current_step);
         });
@@ -387,8 +398,8 @@
         // metodo que nos filtra la data de acuerdo al tipo del vehiculo seleccionado
         function insertParam() {
             var type_certificate = $("#type_certificate").val();
-            var individualRadio = document.getElementById('box-certificate_group_1');
-
+            var groupRadio = document.getElementById('box-certificate_group_1');
+            var divSender = document.getElementById('divSender');
             // Filtrar los datos según el tipo de certificado seleccionado
             var dataWithEmptyType = [];
             var dataWithType = [];
@@ -406,9 +417,15 @@
 
             //ocultamos para cuando sea maquina amarilla el boton de integrado
             if (type_certificate == 0) {
-                individualRadio.style.display = 'block';
+                groupRadio.style.display = 'block';
+                divSender.style.display = 'block';
+                document.getElementById('txtNameSender').setAttribute('required', 'required');;
+                document.getElementById('txtIdSender').setAttribute('required', 'required');;
             }else{
-                individualRadio.style.display = 'none';
+                document.getElementById('txtNameSender').removeAttribute('required');
+                document.getElementById('txtIdSender').removeAttribute('required');
+                groupRadio.style.display = 'none';
+                divSender.style.display = 'none';
             }
 
             var filteredData = (type_certificate == 0) ? dataWithEmptyType : dataWithType;
@@ -451,7 +468,7 @@
                 var isChecked = $(this).text() === 'Seleccionar todos';
 
                 // Marcar o desmarcar todas las casillas de verificación según el estado actual del botón
-                $('input[type="checkbox"]').prop('checked', isChecked);
+                $('input[type="checkbox"]:not(.exclude-select)').prop('checked', isChecked);
 
                 // Cambiar el texto del botón según el estado actual
                 $(this).text(isChecked ? 'Deseleccionar todos' : 'Seleccionar todos');
@@ -462,15 +479,17 @@
     <script>
         function send() {
             // Get the checkbox
-            var checkBox = document.getElementById("send_type_email");
+            var checkBoxEmail = document.getElementById("send_type_email");
             // Get the output text
             var text = document.getElementById("email-box");
 
             // If the checkbox is checked, display the output text
-            if (checkBox.checked == true){
+            if (checkBoxEmail.checked == true){
                 text.style.display = "block";
+                document.getElementById('email').setAttribute('required', 'required');;
             } else {
                 text.style.display = "none";
+                document.getElementById('email').removeAttribute('required');
             }
         }
     </script>
