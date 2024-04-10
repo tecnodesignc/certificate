@@ -7,7 +7,7 @@
     @include('certificate::frontend.partial.header')
 
 
-    <!-- Start contact -->|
+    <!-- Start contact -->
     <section id="contact">
 
         <div class="container">
@@ -118,52 +118,50 @@
                                                 </div>
                                                 {{-- PASO 4 --}}
                                                 <div class="step">
-                                                    <h4>¿Prefiere descargar o enviar el/los certificado(s)?</h4>
-                                                    <div class="row mt-1">
-                                                        <div class="col-6">
-                                                            <div class="form-check ms-0 ps-0 q-box">
-                                                                <div class="q-box__question">
-                                                                    <input
-                                                                        class="form-check-input question__input q-checkbox"
-                                                                        id="send_type_download" name="send_type" type="checkbox"
-                                                                        value="1" checked required>
-                                                                    <label class="form-check-label question__label"
-                                                                            for="send_type_download">Descargar</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <div class="form-check ms-0 ps-0 q-box">
-                                                                <div class="q-box__question">
-                                                                    <input class="form-check-input question__input exclude-select"
-                                                                            id="send_type_email" name="send_type" type="checkbox"
-                                                                            value="2" onclick="send()">
-                                                                    <label class="form-check-label question__label"
-                                                                            for="send_type_email">Enviar</label>
-                                                                </div>
+                                                    <h4>Descargar y enviar el/los certificado(s)</h4>
+
+                                                        <div class="form-check ms-0 ps-0 q-box">
+                                                            <div class="q-box__question">
+                                                                <input
+                                                                    class="form-check-input question__input q-checkbox"
+                                                                    id="send_type_download" name="send_type" type="checkbox"
+                                                                    value="1" checked required>
+                                                                <label class="form-check-label question__label"
+                                                                        for="send_type_download">Descargar *</label>
                                                             </div>
                                                         </div>
 
-                                                        <div class="col-12" id="divSender" style="display: none;">
-                                                            <div class="col-12 mt-2">
-                                                                <label for="">Nombre o razón social *</label>
-                                                                <input class="form-control" type="text" name="nameSender" id="txtNameSender">
-                                                                <label for="" class="mt-2">CC o NIT *</label>
-                                                                <input class="form-control " type="text" name="idSender" id="txtIdSender">
-                                                            </div>
-                                                            <div class="col-12 mt-2">
-                                                                <label for="">A quién va dirigido el certificado (opcional)</label>
-                                                                <input type="text" name="addressee" id="txtAddressee" class="form-control mt-2 bg-light" placeholder="Por defecto: A QUIEN PUEDA INTERESAR">
+                                                        <div class="form-check ms-0 ps-0 q-box">
+                                                            <div class="q-box__question">
+                                                                <input class="form-check-input question__input exclude-select"
+                                                                        id="send_type_email" name="send_type" type="checkbox"
+                                                                        value="2" onclick="send()">
+                                                                <label class="form-check-label question__label"
+                                                                        for="send_type_email">Enviar</label>
                                                             </div>
                                                         </div>
 
-                                                        <div class="col-12">
-                                                            <div class="mt-2" id="email-box" style="display:none">
-                                                                <label class="form-label">Email:</label>
-                                                                <input class="form-control" id="email" name="email" type="email">
+                                                        <div class="row mt-1">
+                                                            <div class="col-12" id="divSender" style="display: none;">
+                                                                <div class="col-12 mt-2">
+                                                                    <label for="">Nombre o razón social *</label>
+                                                                    <input class="form-control" type="text" name="nameSender" id="txtNameSender">
+                                                                    <label for="" class="mt-2">CC o NIT *</label>
+                                                                    <input class="form-control " type="text" name="idSender" id="txtIdSender">
+                                                                </div>
+                                                                <div class="col-12 mt-2">
+                                                                    <label for="">A quién va dirigido el certificado <span class="text-muted">(opcional)</span></label>
+                                                                    <input type="text" name="addressee" id="txtAddressee" class="form-control mt-2 bg-light" placeholder="Por defecto: A QUIEN PUEDA INTERESAR">
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-12">
+                                                                <div class="mt-2" id="email-box" style="display:none">
+                                                                    <label class="form-label">Email:</label>
+                                                                    <input class="form-control" id="email" name="email" type="email">
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
                                                 </div>
                                             </div>
                                             <div id="q-box__buttons">
@@ -588,11 +586,11 @@
         font-size: 17px;
         font-weight: bold;
         position: relative;
-        width: 130px;
+        width: 100px;
         height: 50px;
        // background: #DC3545;
         margin: 0 auto;
-        margin-top: 40px;
+        margin-top: 30px;
         overflow: hidden;
         z-index: 1;
         cursor: pointer;
