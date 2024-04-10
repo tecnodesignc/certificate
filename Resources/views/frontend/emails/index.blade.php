@@ -515,7 +515,7 @@
 
                     <td align="center" valign="top">
 
-                        <div style="background-color: rgb(51, 192, 201); border-radius: 0px;">
+                        <div style="background-color: #0055dd; border-radius: 0px;">
 
                             <!--[if mso]>
                             <table align="center" border="0" cellspacing="0" cellpadding="0" width="100%"
@@ -533,8 +533,8 @@
                                 <tr>
                                     <td align="center" valign="top"><a href="#" name="Layout_6"></a>
                                         <table border="0" width="100%" cellpadding="0" cellspacing="0"
-                                               class="rnb-container" bgcolor="#33c0c9"
-                                               style="height: 0px; background-color: rgb(51, 192, 201); border-radius: 0px; border-collapse: separate; padding: 10px 20px;">
+                                               class="rnb-container" bgcolor="#0055dd"
+                                               style="height: 0px; background-color: #0055dd; border-radius: 0px; border-collapse: separate; padding: 10px 20px;">
                                             <tbody>
                                             <tr>
                                                 <td class="rnb-container-padding"
@@ -731,9 +731,9 @@
                                                                                 <tbody>
                                                                                 <tr>
                                                                                     <td width="auto" valign="middle"
-                                                                                        bgcolor="#33c0c9" align="center"
+                                                                                        bgcolor="#0055dd" align="center"
                                                                                         height="40"
-                                                                                        style="font-size:18px; font-family:'Verdana',Geneva,sans-serif; color:#ffffff; font-weight:normal; padding-left:20px; padding-right:20px; vertical-align: middle; background-color:#33c0c9;border-radius:0px;border-top:0px None #000;border-right:0px None #000;border-bottom:0px None #000;border-left:0px None #000;">
+                                                                                        style="font-size:18px; font-family:'Verdana',Geneva,sans-serif; color:#ffffff; font-weight:normal; padding-left:20px; padding-right:20px; vertical-align: middle; background-color:#ffffff;border-radius:0px;border-top:0px None #000;border-right:0px None #000;border-bottom:0px None #000;border-left:0px None #000;">
                                                                         <span
                                                                             style="color:#ffffff; font-weight:normal;">
                                                                                {{-- <a style="text-decoration:none; color:#ffffff; font-weight:normal;"
@@ -1012,7 +1012,7 @@
 
                     <td align="center" valign="top">
 
-                        <div style="background-color: rgb(51, 192, 201);">
+                        <div style="background-color: #0055dd;">
 
                             <table class="rnb-del-min-width rnb-tmpl-width" width="100%" cellpadding="0" border="0"
                                    cellspacing="0" style="min-width:590px;" name="Layout_4" id="Layout_4">
@@ -1021,8 +1021,8 @@
                                     <td class="rnb-del-min-width" align="center" valign="top" style="min-width:590px;">
                                         <a href="#" name="Layout_4"></a>
                                         <table width="100%" cellpadding="0" border="0" align="center" cellspacing="0"
-                                               bgcolor="#33c0c9"
-                                               style="padding-right: 20px; padding-left: 20px; background-color: rgb(51, 192, 201);">
+                                               bgcolor="#0055dd"
+                                               style="padding-right: 20px; padding-left: 20px; background-color: #0055dd;">
                                             <tbody>
                                             <tr>
                                                 <td height="20" style="font-size:1px; line-height:20px; mso-hide: all;">
