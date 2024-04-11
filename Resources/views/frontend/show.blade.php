@@ -50,17 +50,66 @@
                                                     <div class="mt-5">
                                                         <h4>Felicidades! Tus Certificados Fueron Generados!</h4>
                                                         <p>Ya estan listos para ser descargados</p>
-                                                        @if ($updateData)
-                                                            <ul>
-                                                                @foreach($updateData as $document)
+                                                        {{-- @if ($documents)
+                                                            @if ($documents->config->type == 1)
+                                                                @foreach($documents as $document)
                                                                     <li>
                                                                         <a class="back-link text-success" target="_blank" href="{{route('certificate.generate.view',['key'=>$document->key,'id'=>$document->id])}}">Descargar - {{$document->config->vehicle->name??''}}</a>
                                                                     </li>
                                                                 @endforeach
-                                                            </ul>
+                                                            @else
+                                                                <ul>
+                                                                    @foreach($documents as $document)
+                                                                        @if (
+                                                                            $document->config->vehicle->name &&
+                                                                            $document->config->vehicle->imei &&
+                                                                            $document->config->vehicle->model &&
+                                                                            $document->config->vehicle->brand &&
+                                                                            $document->config->vehicle->s_motor &&
+                                                                            $document->config->vehicle->s_chassis
+                                                                            )
+                                                                            <li>
+                                                                                <a class="back-link text-success" target="_blank" href="{{route('certificate.generate.view',['key'=>$document->key,'id'=>$document->id])}}">Descargar - {{$document->config->vehicle->name??''}}</a>
+                                                                            </li>
+
+                                                                        @else
+                                                                            @php
+                                                                                $outdatedData[] = $document;
+                                                                            @endphp
+                                                                        @endif
+                                                                    @endforeach
+                                                                </ul>
+                                                            @endif
+                                                        @endif --}}
+
+                                                        @if ($documents)
+                                                            @foreach($documents as $document)
+                                                                @if ($document->config->type == 1)
+                                                                        <li>
+                                                                            <a class="back-link text-success" target="_blank" href="{{route('certificate.generate.view',['key'=>$document->key,'id'=>$document->id])}}">Descargar - {{$document->config->vehicle->name??''}}</a>
+                                                                        </li>
+                                                                @else
+                                                                    <ul>
+                                                                        @if (
+                                                                            $document->config->vehicle->imei &&
+                                                                            $document->config->vehicle->brand &&
+                                                                            $document->config->vehicle->s_motor &&
+                                                                            $document->config->vehicle->s_chassis
+                                                                            )
+                                                                            <li>
+                                                                                <a class="back-link text-success" target="_blank" href="{{route('certificate.generate.view',['key'=>$document->key,'id'=>$document->id])}}">Descargar - {{$document->config->vehicle->name??''}}</a>
+                                                                            </li>
+                                                                        @else
+                                                                            @php
+                                                                                $outdatedData[] = $document;
+                                                                            @endphp
+                                                                        @endif
+                                                                    </ul>
+                                                                @endif
+                                                            @endforeach
                                                         @endif
 
-                                                        @if ($outdatedData)
+                                                        @if (!empty($outdatedData))
                                                             <p class="text-dark"><strong>La siguiente maquinaria no tiene los datos actualizados en la plataforma, comunicate a la línea telefónica (+57) 300 912 2995.</strong></p>
                                                             <ul>
                                                                 @foreach($outdatedData as $document)

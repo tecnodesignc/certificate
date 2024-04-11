@@ -104,23 +104,7 @@ class PublicController extends BasePublicController
     public function show($id)
     {
         $documents=$this->document->whereByIds(json_decode($id));
-        foreach($documents as $document){
-            if (
-            $document->config->vehicle->name &&
-            $document->config->vehicle->imei &&
-            $document->config->vehicle->model &&
-            $document->config->vehicle->brand &&
-            $document->config->vehicle->s_motor &&
-            $document->config->vehicle->s_chassis
-            ){
-                $updateData[]=$document;
-            }
-            else{
-                $outdatedData[] = $document;
-            }
-        }
-
-        return view('certificate::frontend.show',compact('updateData', 'outdatedData'));
+        return view('certificate::frontend.show',compact('documents'));
     }
     public function view($key,$id)
     {
