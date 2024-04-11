@@ -23,7 +23,9 @@
     <div class="content m-0 pr-5 text-justify">
         <div class="row">
             <div class="col-6">
-                <img  src="{{Theme::url('images/logo-cer.jpg')}}" alt="Eje Satelital" style="heigth: 140px; width: 360px">
+                {{-- <img  src="{{Theme::url('images/logo-cer.jpg')}}" alt="Eje Satelital" style="heigth: 140px; width: 360px"> --}}
+                <img  src="C:/xampp/htdocs/certificate/ecms/modules/Certificate/Resources/views/frontend/pdf/logo-cer.jpg" alt="Eje Satelital" style="heigth: 140px; width: 360px">
+
             </div>
         </div>
 
@@ -35,14 +37,15 @@
                     <strong>CC/NIT:</strong> {{$document->config->account->idSender?? ''}} <br>
                 </p>
                 <p class="mt-3">
-                    DIRIGIDO A: {{$document->config->account->addressee ?? 'A QUIEN PUEDA INTERESAR'}}
-                </p>
+                        <strong>
+                        DIRIGIDO A: {{$document->config->account->addressee ?? 'A QUIEN PUEDA INTERESAR'}}
+                    </strong>
+                    </p>
                 <h5 class="mt-4 text-center">VINCULACIÓN A PLATAFORMA DE RASTREO SATELITAL</h5>
                 <p class="mt-4">
                     EJE SATELITAL S.A.S, identificado con NIT. 901188980-9 bajo registro TIC 96004149, presta el servicio de ubicación satelital de flota a través de nuestro Aplicativo Web,
                     así como el uso de una terminal propia del cliente para el(los) vehículo(s) relacionado(s) a continuación:
                 </p>
-
                 <div class="row text-center">
                     @if($document->config->type)
                     <table class="table table-sm text-center">
@@ -58,9 +61,15 @@
                     <strong><p class="m-0">{{trim($document->config->vehicle->name)}}</p></strong>
                     @endif
                 </div>
-
+                        <!-- Marcador de posición para el contenido que debe ir al final de la página -->
+            @if($document->config->type)
+            @if(count($document->config->vehicle)>4)
+                <div id="bottom-content" style="page-break-after: always;"></div>
+            @endif
+        @endif
+                <!-- Marcador de posición para el contenido que debe ir al final de la página -->
                 <p class="mt-3">
-                    La vigencia y autenticidad de este certificado puede verificarse mediante el correo electrónico info@ejesatelital.com o en la línea telefónica 311 390 9197.
+                    La vigencia y autenticidad de este certificado puede verificarse mediante el correo electrónico info@ejesatelital.com o en la línea telefónica (+57) 300 912 2995.
                     Además, damos constancia de que el vehículo se encuentra activo en el momento de la expedición de este documento.
                 </p>
                 @php
@@ -75,26 +84,38 @@
                     Cordialmente,
                 </p>
             </div>
-            <div class="col-12 pt-2 d-flex justify-content-between align-items-center mt-2">
-                <img src="{{Theme::url('images/firma-jf.png')}}" alt="Firma" style="width: 200px;" class="img-fluid">
-                <img src="{{Theme::url('images/sello.jpg')}}" alt="Sello" style="width: 100px;" class="img-fluid float-right">
+
+
+            <div  style="position: absolute; bottom: 0;" class="sticky-bottom pr-4 mb-5">
+
+                <div class="col-12 pt-2 d-flex justify-content-between align-items-center mt-2">
+                    {{-- <img src="{{Theme::url('images/firma-jf.png')}}" alt="Firma" style="width: 200px;" class="img-fluid"> --}}
+                    <img src="C:/xampp/htdocs/certificate/ecms/modules/Certificate/Resources/views/frontend/pdf/firma-jf.png" alt="Firma" style="width: 200px;" class="img-fluid">
+
+                    {{-- <img src="{{Theme::url('images/sello.jpg')}}" alt="Sello" style="width: 100px;" class="img-fluid float-right"> --}}
+                    <img src="C:/xampp/htdocs/certificate/ecms/modules/Certificate/Resources/views/frontend/pdf/sello.jpg" alt="Sello" style="width: 100px;" class="img-fluid float-right">
+
+                </div>
+
+                <div class="col-12">
+                    <p class="m-0">Cristian Jimenez</p>
+                    <p class="m-0">Director de Operaciones - Eje Satelital</p>
+                    <p class="m-0">PBX: (+57) 300 912 2995</p>
+                    <p class="m-0"><a href="https://www.ejesatelital.com"><u>www.ejesatelital.com</u></a></p>
+                </div>
+                <div class="col-12 mt-4">
+                    <strong>
+                        <p class="text-muted"  style="font-size: 11px">*El presente documento ha sido generado de manera automática a través de <u>https://certificados.ejesatelital.com</u>,
+                            los datos del remitente y destinatario han sido proporcionados por el usuario en el momento de su creación.</p>
+                    </strong>
+                </div>
+                <div class="col-12 mt-4 text-center" style="font-size: 13px">
+                        <p class="text-secondary font-weight-bold m-0">Eje Satelital S.A.S. Av. 30 de Av. Las Americas No 81-02 Corales NIT: 901188980-9</p>
+                        <p class="text-secondary font-weight-bold m-0">Pereira - Risaralda</p>
+                </div>
             </div>
 
-            <div class="col-12">
-                <p class="m-0">Cristian Jimenez</p>
-                <p class="m-0">Director de Operaciones - Eje Satelital</p>
-                <p class="m-0">Telefono: 311 390 9197</p>
-                <p class="m-0"><a href="https://www.ejesatelital.com">www.ejesatelital.com</a></p>
-            </div>
-            <div class="col-12 mt-5 text-center" style="font-size: 12px">
-                    <p class="text-secondary font-weight-bold m-0">Eje Satelital S.A.S. Av. 30 de Av. Las Americas No 81-02 Corales NIT: 901188980-9</p>
-                    <p class="text-secondary font-weight-bold m-0">Pereira - Risaralda</p>
-            </div>
-            <div class="col-12 mt-3">
-                <strong>
-                    <p class="text-muted"  style="font-size: 10px">*El presente documento ha sido generado de manera automática a través de https://certificados.ejesatelital.com,
-                        los datos del remitente y destinatario han sido proporcionados por el usuario en el momento de su creación.</p></strong>
-            </div>
+
         </div>
 
     </div>

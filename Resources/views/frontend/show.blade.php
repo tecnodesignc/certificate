@@ -50,13 +50,27 @@
                                                     <div class="mt-5">
                                                         <h4>Felicidades! Tus Certificados Fueron Generados!</h4>
                                                         <p>Ya estan listos para ser descargados</p>
-                                                       <ul>
-                                                           @foreach($documents as $document)
-                                                            <li>
-                                                                <a class="back-link text-success" target="_blank" href="{{route('certificate.generate.view',['key'=>$document->key,'id'=>$document->id])}}">Descargar - {{$document->config->vehicle->name??''}}</a>
-                                                            </li>
-                                                           @endforeach
-                                                       </ul>
+                                                        @if ($updateData)
+                                                            <ul>
+                                                                @foreach($updateData as $document)
+                                                                    <li>
+                                                                        <a class="back-link text-success" target="_blank" href="{{route('certificate.generate.view',['key'=>$document->key,'id'=>$document->id])}}">Descargar - {{$document->config->vehicle->name??''}}</a>
+                                                                    </li>
+                                                                @endforeach
+                                                            </ul>
+                                                        @endif
+
+                                                        @if ($outdatedData)
+                                                            <p class="text-dark"><strong>La siguiente maquinaria no tiene los datos actualizados en la plataforma, comunicate a la línea telefónica (+57) 300 912 2995.</strong></p>
+                                                            <ul>
+                                                                @foreach($outdatedData as $document)
+                                                                <li class="">
+                                                                    <p >{{$document->config->vehicle->name}}</p>
+                                                                </li>
+                                                                @endforeach
+                                                            </ul>
+                                                        @endif
+
                                                     </div>
                                                 </div>
                                             </div>

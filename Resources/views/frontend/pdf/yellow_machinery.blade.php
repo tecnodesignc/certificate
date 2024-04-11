@@ -45,8 +45,10 @@
                 Pereira, {{$document->created_at->isoFormat('D [de] MMMM [de] YYYY')}}
             </p>
             <p style="margin-top: 30px">
-                A QUIEN PUEDA INTERESAR
-            </p>
+                <strong>
+                    A QUIEN PUEDA INTERESAR
+                </strong>
+                </p>
             <h5 style="margin-top: 30px; text-align: center; font-weight: bold">VINCULACIÓN A PLATAFORMA DE RASTREO
                 SATELITAL</h5>
             <p style="margin-top: 30px">
@@ -104,7 +106,7 @@
             </p>
 
                 <p class="mt-3">
-                    La vigencia y autenticidad de este certificado puede verificarse mediante el correo electrónico info@ejesatelital.com o en la línea telefónica 311 390 9197.
+                    La vigencia y autenticidad de este certificado puede verificarse mediante el correo electrónico info@ejesatelital.com o en la línea telefónica (+57) 300 912 2995.
                     Además, damos constancia de que el suscrito se encuentra activo en el momento de la expedición de este documento.
                 </p>
                 @php
@@ -127,8 +129,8 @@
         <div class="col-12">
             <p class="m-0">Cristian Jimenez</p>
             <p class="m-0">Director de Operaciones - Eje Satelital</p>
-            <p class="m-0">Telefono: 311 390 9197</p>
-            <p class="m-0"><a href="https://www.ejesatelital.com">www.ejesatelital.com</a></p>
+            <p class="m-0">PBX: (+57) 300 912 2995</p>
+            <p class="m-0"><a href="https://www.ejesatelital.com"><u>www.ejesatelital.com</u></a></p>
         </div>
         <div class="col-12 mt-5 text-center" style="font-size: 12px">
                 <p class="text-secondary font-weight-bold m-0">Eje Satelital S.A.S. Av. 30 de Av. Las Americas No 81-02 Corales NIT: 901188980-9</p>

@@ -34,7 +34,6 @@ class PublicController extends BasePublicController
         parent::__construct();
         $this->document = $document;
         $this->mail = $mail;
-
     }
 
     public function index(Request $request)
@@ -50,6 +49,12 @@ class PublicController extends BasePublicController
     public function send(Request $request)
     {
         $params = $request->all();
+
+        if(!isset($params['vehicle']))
+        {
+            return redirect()->back()->with('warning', 'No seleccionaste ningún registro al cuál generar certificado!');
+        }
+
         $user = $this->auth->user();
         $data = [
             'config'=> [
@@ -99,8 +104,23 @@ class PublicController extends BasePublicController
     public function show($id)
     {
         $documents=$this->document->whereByIds(json_decode($id));
+        foreach($documents as $document){
+            if (
+            $document->config->vehicle->name &&
+            $document->config->vehicle->imei &&
+            $document->config->vehicle->model &&
+            $document->config->vehicle->brand &&
+            $document->config->vehicle->s_motor &&
+            $document->config->vehicle->s_chassis
+            ){
+                $updateData[]=$document;
+            }
+            else{
+                $outdatedData[] = $document;
+            }
+        }
 
-        return view('certificate::frontend.show',compact('documents'));
+        return view('certificate::frontend.show',compact('updateData', 'outdatedData'));
     }
     public function view($key,$id)
     {
