@@ -59,10 +59,10 @@
                                                                             </li>
                                                                     @else
                                                                         @if (
-                                                                            $document->config->vehicle->imei=='' &&
-                                                                            $document->config->vehicle->brand=='' &&
-                                                                            $document->config->vehicle->s_motor=='' &&
-                                                                            $document->config->vehicle->s_chassis==''
+                                                                            $document->config->vehicle->imei!='' &&
+                                                                            $document->config->vehicle->brand!='' &&
+                                                                            $document->config->vehicle->s_motor!='' &&
+                                                                            $document->config->vehicle->s_chassis!=''
                                                                             )
                                                                             <li>
                                                                                 <a class="back-link text-success" target="_blank" href="{{route('certificate.generate.view',['key'=>$document->key,'id'=>$document->id])}}">Descargar - {{$document->config->vehicle->name??''}}</a>
