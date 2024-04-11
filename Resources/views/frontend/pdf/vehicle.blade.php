@@ -23,9 +23,7 @@
     <div class="content m-0 pr-5 text-justify">
         <div class="row">
             <div class="col-6">
-                {{-- <img  src="{{Theme::url('images/logo-cer.jpg')}}" alt="Eje Satelital" style="heigth: 140px; width: 360px"> --}}
-                <img  src="C:/xampp/htdocs/certificate/ecms/modules/Certificate/Resources/views/frontend/pdf/logo-cer.jpg" alt="Eje Satelital" style="heigth: 140px; width: 360px">
-
+                <img  src="{{Theme::url('images/logo-cer.jpg')}}" alt="Eje Satelital" style="heigth: 140px; width: 360px">
             </div>
         </div>
 
@@ -89,11 +87,9 @@
             <div  style="position: absolute; bottom: 0;" class="sticky-bottom pr-4 mb-5">
 
                 <div class="col-12 pt-2 d-flex justify-content-between align-items-center mt-2">
-                    {{-- <img src="{{Theme::url('images/firma-jf.png')}}" alt="Firma" style="width: 200px;" class="img-fluid"> --}}
-                    <img src="C:/xampp/htdocs/certificate/ecms/modules/Certificate/Resources/views/frontend/pdf/firma-jf.png" alt="Firma" style="width: 200px;" class="img-fluid">
+                    <img src="{{Theme::url('images/firma-jf.png')}}" alt="Firma" style="width: 200px;" class="img-fluid">
 
-                    {{-- <img src="{{Theme::url('images/sello.jpg')}}" alt="Sello" style="width: 100px;" class="img-fluid float-right"> --}}
-                    <img src="C:/xampp/htdocs/certificate/ecms/modules/Certificate/Resources/views/frontend/pdf/sello.jpg" alt="Sello" style="width: 100px;" class="img-fluid float-right">
+                    <img src="{{Theme::url('images/sello.jpg')}}" alt="Sello" style="width: 100px;" class="img-fluid float-right">
 
                 </div>
 
