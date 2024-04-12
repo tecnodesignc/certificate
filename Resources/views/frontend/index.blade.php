@@ -92,6 +92,7 @@
 
                                                     <div id="divNoObjects"  style="display: inline-block;">
                                                         <h4 class="text-info" >No cuenta con datos para generar certificado(s).</h4>
+                                                        <p>Si cuenta con vehiculos/maquina , no dudes en contactarnos al número (+57) 300 912 2995.</p>
                                                     </div>
                                                     <input  id="count_vehicle" type="hidden" value="" >
 
@@ -142,12 +143,12 @@
                                                         </div>
 
                                                         <div class="row mt-1">
-                                                            <div class="col-12" id="divSender" style="display: none;">
+                                                            <div class="col-12">
                                                                 <div class="col-12 mt-2">
                                                                     <label for="">Nombre o razón social *</label>
-                                                                    <input class="form-control" type="text" name="nameSender" id="txtNameSender">
+                                                                    <input class="form-control" type="text" name="nameSender" id="txtNameSender" required>
                                                                     <label for="" class="mt-2">CC o NIT *</label>
-                                                                    <input class="form-control " type="text" name="idSender" id="txtIdSender">
+                                                                    <input class="form-control " type="text" name="idSender" id="txtIdSender" required>
                                                                 </div>
                                                                 <div class="col-12 mt-2">
                                                                     <label for="">A quién va dirigido el certificado <span class="text-muted">(opcional)</span></label>
@@ -397,7 +398,6 @@
         function insertParam() {
             var type_certificate = $("#type_certificate").val();
             var groupRadio = document.getElementById('box-certificate_group_1');
-            var divSender = document.getElementById('divSender');
             // Filtrar los datos según el tipo de certificado seleccionado
             var dataWithEmptyType = [];
             var dataWithType = [];
@@ -416,14 +416,8 @@
             //ocultamos para cuando sea maquina amarilla el boton de integrado
             if (type_certificate == 0) {
                 groupRadio.style.display = 'block';
-                divSender.style.display = 'block';
-                document.getElementById('txtNameSender').setAttribute('required', 'required');;
-                document.getElementById('txtIdSender').setAttribute('required', 'required');;
             }else{
-                document.getElementById('txtNameSender').removeAttribute('required');
-                document.getElementById('txtIdSender').removeAttribute('required');
                 groupRadio.style.display = 'none';
-                divSender.style.display = 'none';
             }
 
             var filteredData = (type_certificate == 0) ? dataWithEmptyType : dataWithType;

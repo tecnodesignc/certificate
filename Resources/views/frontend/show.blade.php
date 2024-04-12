@@ -47,10 +47,8 @@
                                         <div id="qbox-container">
                                             <div id="steps-container">
                                                 <div class="step">
-                                                    <div class="mt-5">
-                                                        <h4>Felicidades! Tus Certificados Fueron Generados!</h4>
-                                                        <p>Ya estan listos para ser descargados</p>
                                                         @if ($documents)
+                                                            <h4>¡Aquí puedes descargar tus certificados!</h4>
                                                             <ul>
                                                                 @foreach($documents as $document)
                                                                     @if ($document->template == 'certificate::frontend.pdf.vehicle')
@@ -73,12 +71,12 @@
                                                                             @endphp
                                                                         @endif
                                                                     @endif
-                                                                    @endforeach
+                                                                @endforeach
                                                             </ul>
                                                         @endif
 
                                                         @if (!empty($outdatedData))
-                                                            <p class="text-dark"><strong>La siguiente maquinaria no tiene los datos actualizados en la plataforma, comunicate a la línea telefónica (+57) 300 912 2995.</strong></p>
+                                                            <p class="text-dark pr-5"><strong>La información de la(s) siguiente(s) maquinaria(s) no está actualizada en nuestra plataforma. Por favor, contáctanos al número (+57) 300 912 2995.</strong></p>
                                                             <ul>
                                                                 @foreach($outdatedData as $document)
                                                                 <li class="">
@@ -88,7 +86,6 @@
                                                             </ul>
                                                         @endif
 
-                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="text-center">

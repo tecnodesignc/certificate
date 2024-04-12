@@ -20,7 +20,7 @@
 
         body {
             font-family: 'Time Roman';
-            font-size: 16px;
+            font-size: 14px;
             text-align: justify;
             line-height: 19px;
         }
@@ -29,7 +29,7 @@
             margin-bottom: 0.5rem;
         }
         .table{
-            font-size: 15px;
+            font-size: 13px;
         }
     </style>
 </head>
@@ -41,17 +41,19 @@
         </div>
     </div>
         <div class="col-12">
-            <p style="margin-top: 20px">
-                Pereira, {{$document->created_at->isoFormat('D [de] MMMM [de] YYYY')}}
+            <p class="mt-1">
+                Pereira, {{$document->created_at->isoFormat('D [de] MMMM [de] YYYY')}} <br>
+                <strong>Remitente:</strong> {{$document->config->account->nameSender?? ''}} <br>
+                <strong>CC/NIT:</strong> {{$document->config->account->idSender?? ''}} <br>
             </p>
-            <p style="margin-top: 30px">
+            <p class="mt-2">
                 <strong>
-                    A QUIEN PUEDA INTERESAR
+                    DIRIGIDO A: {{$document->config->account->addressee ?? 'A QUIEN PUEDA INTERESAR'}}
                 </strong>
-                </p>
-            <h5 style="margin-top: 30px; text-align: center; font-weight: bold">VINCULACIÓN A PLATAFORMA DE RASTREO
+            </p>
+            <h5 class="mt-3" style="text-align: center; font-weight: bold">VINCULACIÓN A PLATAFORMA DE RASTREO
                 SATELITAL</h5>
-            <p style="margin-top: 30px">
+            <p class="mt-3">
                 Mediante la presente, hacemos constancia de la instalación y vinculación a nuestra plataforma de rastreo satelital - Eje Satelital.
             </p>
             <p>
@@ -105,7 +107,7 @@
                 información a través de {{$document->config->account->email??'N/A'}} y la contraseña suministrada a dicho correo.
             </p>
 
-                <p class="mt-3">
+                <p class="mt-2">
                     La vigencia y autenticidad de este certificado puede verificarse mediante el correo electrónico info@ejesatelital.com o en la línea telefónica (+57) 300 912 2995.
                     Además, damos constancia de que el suscrito se encuentra activo en el momento de la expedición de este documento.
                 </p>
@@ -132,8 +134,14 @@
             <p class="m-0">PBX: (+57) 300 912 2995</p>
             <p class="m-0"><a href="https://www.ejesatelital.com"><u>www.ejesatelital.com</u></a></p>
         </div>
-        <div class="col-12 mt-5 text-center" style="font-size: 12px">
-                <p class="text-secondary font-weight-bold m-0">Eje Satelital S.A.S. Av. 30 de Av. Las Americas No 81-02 Corales NIT: 901188980-9</p>
+        <div class="col-12 mt-2">
+            <strong>
+                <p class="text-muted"  style="font-size: 11px">*El presente documento ha sido generado de manera automática a través de <u>https://certificados.ejesatelital.com</u>,
+                    los datos del remitente y destinatario han sido proporcionados por el usuario en el momento de su creación.</p>
+            </strong>
+        </div>
+        <div class="col-12 mt-3 text-center" style="font-size: 12px">
+            <p class="text-secondary font-weight-bold m-0">Soporte Tecnico Eje Satelital S.A.S. Av. 30 de Av. Las Americas No 81-02 Corales NIT: 34066000-8</p>
                 <p class="text-secondary font-weight-bold m-0">Pereira - Risaralda</p>
         </div>
     </div>
