@@ -54,7 +54,7 @@
             <h5 class="mt-3" style="text-align: center; font-weight: bold">VINCULACIÓN A PLATAFORMA DE RASTREO
                 SATELITAL</h5>
             <p class="mt-3">
-                Mediante la presente, hacemos constancia de la instalación y vinculación a nuestra plataforma de rastreo satelital - Eje Satelital.
+                Mediante la presente, hacemos constancia de la instalación y vinculación a nuestra Plataforma de Rastreo Satelital - Eje Satelital S.A.S.
             </p>
             <p>
                 La anterior ha sido efectuada en la máquina relacionada a continuación:
@@ -102,8 +102,19 @@
             <p>
                 Usando como dispositivo de Hardware una unidad con módulo chip integrado GPS con número IMEI
                 <strong>{{$document->config->vehicle->imei??''}}</strong> y Serial:
-                <strong>{{substr($document->config->vehicle->imei, -10, -1)??''}}</strong>,
-                para Transmisión Satelital enviando GPRS con cobertura nacional bajo el siguiente usuario para efectos de login en la plataforma:
+                <strong>
+                    {{
+                        !empty($document->config->vehicle->serial)
+                            ? $document->config->vehicle->serial
+                            : (
+                                $document->config->vehicle->type == 'maquinaria'
+                                    ? substr($document->config->vehicle->imei, -10, -1)
+                                    : ($document->config->vehicle->type == 'maquinaria2'
+                                        ? substr($document->config->vehicle->imei, -9)
+                                        : '')
+                            )
+                    }}
+                </strong> para Transmisión Satelital enviando GPRS con cobertura nacional bajo el siguiente usuario para efectos de login en la plataforma:
                 información a través de {{$document->config->account->email??'N/A'}} y la contraseña suministrada a dicho correo.
             </p>
 

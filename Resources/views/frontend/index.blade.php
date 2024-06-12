@@ -144,12 +144,16 @@
 
                                                         <div class="row mt-1">
                                                             <div class="col-12">
+                                                                <div class="col-12">
+                                                                    <h5><strong>Datos del remitente</strong></h5>
+                                                                </div>
                                                                 <div class="col-12 mt-2">
                                                                     <label for="">Nombre o razón social *</label>
                                                                     <input class="form-control" type="text" name="nameSender" id="txtNameSender" required>
                                                                     <label for="" class="mt-2">CC o NIT *</label>
                                                                     <input class="form-control " type="text" name="idSender" id="txtIdSender" required>
                                                                 </div>
+                                                                <hr>
                                                                 <div class="col-12 mt-2">
                                                                     <label for="">A quién va dirigido el certificado <span class="text-muted">(opcional)</span></label>
                                                                     <input type="text" name="addressee" id="txtAddressee" class="form-control mt-2 bg-light" placeholder="Por defecto: A QUIEN PUEDA INTERESAR">
@@ -404,7 +408,7 @@
             vehiculosData.data.forEach(data => {
                 if (type_certificate == 0 && data.type === "") {
                     dataWithEmptyType.push(data);
-                } else if (type_certificate == 1 && data.type === "maquinaria") {
+                } else if (type_certificate == 1 && (data.type === "maquinaria" || data.type === "maquinaria2" )) {
                     dataWithType.push(data);
                 }
             });
@@ -435,7 +439,8 @@
                     brand: data.brand,
                     model: data.model,
                     s_motor: data.s_motor,
-                    s_chassis: data.s_chassis
+                    s_chassis: data.s_chassis,
+                    serial: data.serial,
                 };
                 const vehicleJSON = JSON.stringify(formData);
 
